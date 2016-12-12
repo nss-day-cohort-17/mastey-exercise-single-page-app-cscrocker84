@@ -20,6 +20,13 @@
       "year": "1965",
       "price": "7500000",
       "description": "This is the 2nd most expensive 'movie car' ever sold but this car also helped win Shelby the FIA in 1965, something no American company had ever done."
+    },
+    {
+      "make": "Bugatti",
+      "model": "Veyron",
+      "year": "2010",
+      "price": "2500000",
+      "description": "This is the fastest production car in the world, reaching over 260 mph on the VW track!."
     }
    ]
 }
