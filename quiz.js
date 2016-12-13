@@ -13,13 +13,15 @@ function loadInventory (callback) { // Load the inventory
   populatePage(e);//.........................................................=
   console.log("Number of cars in inventory: ",loadInventory.cars.length);//..=**** Number of cars in inventory
   });
-   inventoryLoader.open("GET", "inventory.json"); // JSON Called from File
+   // inventoryLoader.open("GET", "inventory.json");  JSON Called from File
+  inventoryLoader.open("GET", "https://csc1-a3e8f.firebaseio.com/.json");
   inventoryLoader.send();
 }// function populatePage (inventory)
   // Loop over the inventory and populate the page
   function populatePage () {
   for(var i = 0; i < loadInventory.cars.length; i++){ // Loops through the JSON Parse to create inner HTML
     inventory += `<div class="col-lg-4 col-md-6">
+    				<img class="img-responsive" ${loadInventory.cars[i].img} alt="Card image cap">
                     <div class="card">
                         <h3 class="card-title">${loadInventory.cars[i].make}</h3>
                         <h4 class="year">${loadInventory.cars[i].year}</h4>
