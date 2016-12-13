@@ -1,0 +1,21 @@
+body {
+	background-image: Images/pagani.jpg;
+}
+
+
+
+#cards {
+	margin-top: 80px;
+}
+
+input,
+select,
+textarea {
+   min-width: 450px;
+   margin-bottom: 1rem;
+}
+
+.card-img-top{
+  display: block;;
+  margin: 0 auto;
+}
