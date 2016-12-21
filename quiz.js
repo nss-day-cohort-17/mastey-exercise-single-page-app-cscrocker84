@@ -1,6 +1,6 @@
 var inventory = [];
 loadInventory();
-var focus;
+var carFocus;
 
 // function populatePage (inventory)
 // Load the inventory and send a callback function to be
@@ -43,3 +43,19 @@ function loadInventory (callback) { // Load the inventory
   	document.getElementById("submitButton").addEventListener("click", buttonSubmit);
     document.getElementById('modText').addEventListener("keyup", typeDescription);
   }
+
+//Focus when Card is clicked//
+  function focusCard(e){
+  var el = document.querySelector("div.card"); // focuses on DOM near div.card
+  tgtFocus = el.closest("div"); // looks for div closest to .vis in <img> (.card)
+  if (tgtFocus.id === ""){ // id attribute of .card
+    tgtFocus.id = "focusStyle"; // applies special styling focus to .card
+    document.getElementById('modText').focus(); // puts focus on text input
+    console.log("6.Card Clicked: ", tgtFocus, "ID: ",tgtFocus.id); //**** Message ****************************************6
+    typeDescription(); // calls input text function
+  }else{ // if card already has Id of #focusStle, it gets removed
+    tgtFocus.id = ""; // clears focus if card is clicked again
+    document.getElementById('modText').blur(); // blurs input field
+    document.getElementById('modText').value = ""; // clears input field
+  }
+}
