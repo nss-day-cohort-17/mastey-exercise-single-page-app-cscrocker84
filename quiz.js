@@ -1,5 +1,6 @@
 var inventory = [];
 loadInventory();
+var focus;
 
 // function populatePage (inventory)
 // Load the inventory and send a callback function to be
@@ -34,4 +35,11 @@ function loadInventory (callback) { // Load the inventory
                   </div>  `
   }
   document.getElementById("cards").innerHTML = inventory;
+  activateEvent();
+  }
+
+  function actionEvents(e){
+  	document.getElementById("cards").addEventListener("click", cardFocus);
+  	document.getElementById("submitButton").addEventListener("click", buttonSubmit);
+    document.getElementById('modText').addEventListener("keyup", typeDescription);
   }
