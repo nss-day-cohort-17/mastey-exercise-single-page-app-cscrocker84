@@ -16,7 +16,7 @@ textarea {
 
 .cards{ /* The container for the car listing */
   background-color: aquamarine;
-  border: 5px solid;
+  border: 3px solid black;
   border-radius: 5px;
   overflow: hidden;
 }
