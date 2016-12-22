@@ -19,10 +19,10 @@ function loadInventory () { // Load the inventory
   inventoryLoader.send();
 }// function populatePage (inventory)
   // Loop over the inventory and populate the page
-  function populatePage () {
+  function populatePage (e) {
   for(var i = 0; i < loadInventory.cars.length; i++){ // Loops through the JSON Parse to create inner HTML
     inventory += `<div class="col-sm-4 col-md-4">
-    				<div class="card">
+    				<div class="cards">
     				<h3 class="card-title">${loadInventory.cars[i].make}</h3>
             <img class="card-img-top img-responsive img-xs-center" ${loadInventory.cars[i].img} alt="Card image cap">
                     <div class="cardText">
@@ -76,12 +76,4 @@ function loadInventory () { // Load the inventory
     document.getElementById('modText').blur(); // blurs input field
     document.getElementById('modText').value = ""; // clears input field
   }
-}
-
-function typeDescription(e){
-  document.getElementById("modText").value = document.querySelector("p.card-text").innerHTML; // loads text from <p> to input
-}
-function buttonSubmit(e){
-  tgtFocus.id = ""; // clears focus style from card
-  document.getElementById('modText').blur();
 }
