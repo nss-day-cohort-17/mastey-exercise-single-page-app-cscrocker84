@@ -5,9 +5,9 @@ var carFocus;
 // function populatePage (inventory)
 // Load the inventory and send a callback function to be
 // invoked after the process is complete
-function loadInventory (callback) { // Load the inventory
+function loadInventory () { // Load the inventory
   var inventoryLoader = new XMLHttpRequest();
-  inventoryLoader.addEventListener("load", function (e) { // Callback .......=
+  inventoryLoader.addEventListener("load", function (e) { // Callback
   loadInventory = JSON.parse(e.target.responseText);//.......................=
   console.log("Load complete.");//...........................................=**** Message
   console.log("JSON: ", loadInventory);//....................................=**** Shows the JSON
@@ -21,11 +21,11 @@ function loadInventory (callback) { // Load the inventory
   // Loop over the inventory and populate the page
   function populatePage () {
   for(var i = 0; i < loadInventory.cars.length; i++){ // Loops through the JSON Parse to create inner HTML
-    inventory += `<div class="col-lg-4 col-md-6">
+    inventory += `<div class="col-sm-4 col-md-4">
     				<div class="card">
-    				<img class="card-img-top img-responsive img-xs-center" ${loadInventory.cars[i].img} alt="Card image cap">
+    				<h3 class="card-title">${loadInventory.cars[i].make}</h3>
+            <img class="card-img-top img-responsive img-xs-center" ${loadInventory.cars[i].img} alt="Card image cap">
                     <div class="cardText">
-                        <h3 class="card-title">${loadInventory.cars[i].make}</h3>
                         <h4 class="year">${loadInventory.cars[i].year}</h4>
                         <h4 class="model">${loadInventory.cars[i].model}</h4>
                         <h3 class="price">${loadInventory.cars[i].price}</h3>
@@ -35,14 +35,32 @@ function loadInventory (callback) { // Load the inventory
                   </div>  `
   }
   document.getElementById("cards").innerHTML = inventory;
-  activateEvent();
+  activateEvents();
   }
 
-  function actionEvents(e){
-  	document.getElementById("cards").addEventListener("click", cardFocus);
-  	document.getElementById("submitButton").addEventListener("click", buttonSubmit);
-    document.getElementById('modText').addEventListener("keyup", typeDescription);
-  }
+  function activateEvents() {
+    // event listener on the cards
+    for (let i = 0; i < document.querySelectorAll('.card').length; i++) {
+        document.querySelectorAll('.card')[i].addEventListener('click', (e) => {
+            // if the current card already has the cardClick class then remove it and background color
+            if (e.currentTarget.classList.contains('cardClick')) {
+                // e.currentTarget.classList.remove('cardClick');
+                resetStyling();
+            // if another card is clicked then remove the class and background color and add it to the one that is clicked
+            } else if (document.querySelector('.cardClick')) {
+                resetStyling();
+                e.currentTarget.classList.add("cardClick");
+                changeCardColor(e, "red");
+            // else add the cardClick class to the target and change the background color
+            } else {
+                e.currentTarget.classList.add("cardClick");
+                changeCardColor(e, "red");
+            }
+        });
+    }
+    // editCardDescription();
+};
+
 
 //Focus when Card is clicked//
   function focusCard(e){
@@ -58,4 +76,12 @@ function loadInventory (callback) { // Load the inventory
     document.getElementById('modText').blur(); // blurs input field
     document.getElementById('modText').value = ""; // clears input field
   }
+}
+
+function typeDescription(e){
+  document.getElementById("modText").value = document.querySelector("p.card-text").innerHTML; // loads text from <p> to input
+}
+function buttonSubmit(e){
+  tgtFocus.id = ""; // clears focus style from card
+  document.getElementById('modText').blur();
 }
