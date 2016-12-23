@@ -4,33 +4,29 @@
       "make": "Ferrari",
       "model": "Modena Spyder California",
       "year": "1963",
-      "price": "$9000000",
+      "price": "9000000",
       "description": "The car made (more) famous by Ferris Bueller's Day Off.  One of only 300 in existence.",
-      "img": "src='Images/rarri.jpg'"
     },
     {
       "make": "Mercedes",
       "model": "540K Roadster",
       "year": "1937",
-      "price": "$8500000",
+      "price": "8500000",
       "description": "One of 406 made and the only one of less than 10 that survived the war, this car was delivered to a British Duke only 18 months before the start of WWII.",
-      "img": "src='Images/540k.jpg'"
     },
     {
       "make": "Shelby",
       "model": "Daytona Cobra Coupe",
       "year": "1965",
-      "price": "$7500000",
+      "price": "7500000",
       "description": "This is the 2nd most expensive 'movie car' ever sold but this car also helped win Shelby the FIA in 1965, something no American company had ever done.",
-      "img": "src='Images/shelby.jpg'"
     },
     {
       "make": "Bugatti",
       "model": "Veyron",
       "year": "2010",
-      "price": "$2500000",
+      "price": "2500000",
       "description": "This is the fastest production car in the world, reaching over 260 mph on the VW track!.",
-      "img": "src='/Images/veyron.jpg'"
     }
    ]
 }
