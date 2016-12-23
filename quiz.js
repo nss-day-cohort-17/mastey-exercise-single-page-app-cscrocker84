@@ -64,7 +64,7 @@ function populatePage (e) {
             } else if (document.querySelector('.cardClick')) {
                 resetStyling();
                 e.currentTarget.classList.add("cardClick");
-                changeCardColor(e, "red");
+                changeCardColor(e, "blue");
             // else add the cardClick class to the target and change the background color
             } else {
                 e.currentTarget.classList.add("cardClick");
@@ -83,4 +83,31 @@ function resetStyling () {
     for (let i = 0; i < inventory.cars.length; i++) {
         document.querySelectorAll('.card')[i].style.backgroundColor = '';
     }
+}
+
+function changeCardColor (e, color) {
+
+    // move focus to the description field in the navbar
+    let descriptionField = document.querySelector('.form-control');
+    descriptionField.value = "";
+    descriptionField.focus();
+    //resetStyling(e);
+    e.currentTarget.style.backgroundColor = color;
+    editCardDescription();
+}
+
+function editCardDescription () {
+    // event listener on the description input, include keyup listener
+    let newDescription = document.querySelector('.form-control');
+    console.log(newDescription);
+
+    // on keyup event change the text
+    newDescription.addEventListener('keyup', (e) => {
+        let editHighlightedCard = document.querySelector('.cardClick').querySelector('.card-block').querySelector('p');
+        if (e.key === "Enter") {
+            newDescription.value = "";
+        } else {
+            editHighlightedCard.innerHTML = newDescription.value;
+        }
+    });
 }
