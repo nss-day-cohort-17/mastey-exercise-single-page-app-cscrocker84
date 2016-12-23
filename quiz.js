@@ -1,41 +1,55 @@
-var inventory = [];
+let inventory = [];
+let carSection = document.querySelector('.cards');
+
+
 loadInventory();
-var carFocus;
 
 // function populatePage (inventory)
 // Load the inventory and send a callback function to be
 // invoked after the process is complete
-function loadInventory () { // Load the inventory
-  var inventoryLoader = new XMLHttpRequest();
-  inventoryLoader.addEventListener("load", function (e) { // Callback
-  loadInventory = JSON.parse(e.target.responseText);//.......................=
-  console.log("Load complete.");//...........................................=**** Message
-  console.log("JSON: ", loadInventory);//....................................=**** Shows the JSON
-  populatePage(e);//.........................................................=
-  console.log("Number of cars in inventory: ",loadInventory.cars.length);//..=**** Number of cars in inventory
-  });
-   // inventoryLoader.open("GET", "inventory.json");  JSON Called from File
-  inventoryLoader.open("GET", "https://csc1-a3e8f.firebaseio.com/.json");
+
+function loadInventory() {
+  const inventoryLoader = new XMLHttpRequest();
+  inventoryLoader.addEventListener("load", populatePage);
+  inventoryLoader.open("GET", "inventory.json");
   inventoryLoader.send();
-}// function populatePage (inventory)
-  // Loop over the inventory and populate the page
-  function populatePage (e) {
-  for(var i = 0; i < loadInventory.cars.length; i++){ // Loops through the JSON Parse to create inner HTML
-    inventory += `<div class="col-sm-4 col-md-4">
-    				<div class="cards">
-    				<h3 class="card-title">${loadInventory.cars[i].make}</h3>
-            <img class="card-img-top img-responsive img-xs-center" ${loadInventory.cars[i].img} alt="Card image cap">
-                    <div class="cardText">
-                        <h4 class="year">${loadInventory.cars[i].year}</h4>
-                        <h4 class="model">${loadInventory.cars[i].model}</h4>
-                        <h3 class="price">${loadInventory.cars[i].price}</h3>
-                        <p class="card-text">${loadInventory.cars[i].description}</a>
-                      </div>
-                    </div>
-                  </div>  `
-  }
-  document.getElementById("cards").innerHTML = inventory;
-  activateEvents();
+}
+// function populatePage (inventory)
+function populatePage (e) {
+    inventory = JSON.parse(e.target.responseText);
+    // Get reference to the autos section of html
+    const carList = document.querySelector('.autos');
+    // empty the autos section
+    carSection.innerHTML = "";
+    // declare car inventory variable
+    let carInventory = "";
+    // loop over the inventory and load to page
+    for (let i = 0; i < inventory.cars.length; i++) {
+        if (i%3 === 0) {
+            carInventory += `<div class="row">`;
+        }
+        carInventory +=
+        `<div class="col-md-4 col-sm-6">
+            <div class="card">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">${inventory.cars[i].year} ${inventory.cars[i].make} ${inventory.cars[i].model}</li>
+                </ul>
+                <div class="card-block">
+                    <p class="card-text">${inventory.cars[i].description}</p>
+                    <h5 class="card-title">$${inventory.cars[i].price}</h5>
+                </div>
+            </div>
+        </div>`;
+        if (i%3 === 2) {
+            carInventory += `</div>`;
+        }
+        if (i === (inventory.cars.length - 1)) {
+            carInventory += `</div>`
+        }
+    }
+    // write to the HTML
+    carSection.innerHTML = carInventory;
+    activateEvents();
   }
 
   function activateEvents() {
@@ -54,7 +68,7 @@ function loadInventory () { // Load the inventory
             // else add the cardClick class to the target and change the background color
             } else {
                 e.currentTarget.classList.add("cardClick");
-                changeCardColor(e, "red");
+                changeCardColor(e, "blue");
             }
         });
     }
@@ -62,18 +76,39 @@ function loadInventory () { // Load the inventory
 };
 
 
-//Focus when Card is clicked//
-  function focusCard(e){
-  var el = document.querySelector("div.card"); // focuses on DOM near div.card
-  tgtFocus = el.closest("div"); // looks for div closest to .vis in <img> (.card)
-  if (tgtFocus.id === ""){ // id attribute of .card
-    tgtFocus.id = "focusStyle"; // applies special styling focus to .card
-    document.getElementById('modText').focus(); // puts focus on text input
-    console.log("6.Card Clicked: ", tgtFocus, "ID: ",tgtFocus.id); //**** Message ****************************************6
-    typeDescription(); // calls input text function
-  }else{ // if card already has Id of #focusStle, it gets removed
-    tgtFocus.id = ""; // clears focus if card is clicked again
-    document.getElementById('modText').blur(); // blurs input field
-    document.getElementById('modText').value = ""; // clears input field
-  }
+function resetStyling () {
+    // if the
+    if (document.querySelector('.cardClick')) {
+        document.querySelector('.cardClick').classList.remove('cardClick');
+    }
+    for (let i = 0; i < inventory.cars.length; i++) {
+        document.querySelectorAll('.card')[i].style.backgroundColor = '';
+    }
+}
+
+function changeCardColor (e, color) {
+
+    // move focus to the description field in the navbar
+    let descriptionField = document.querySelector('.form-control');
+    descriptionField.value = "";
+    descriptionField.focus();
+    //resetStyling(e);
+    e.currentTarget.style.backgroundColor = color;
+    editCardDescription();
+}
+
+function editCardDescription () {
+    // event listener on the description input, include keyup listener
+    let newDescription = document.querySelector('.form-control');
+    console.log(newDescription);
+
+    // on keyup event change the text
+    newDescription.addEventListener('keyup', (e) => {
+        let editHighlightedCard = document.querySelector('.cardClick').querySelector('.card-block').querySelector('p');
+        if (e.key === "Enter") {
+            newDescription.value = "";
+        } else {
+            editHighlightedCard.innerHTML = newDescription.value;
+        }
+    });
 }
