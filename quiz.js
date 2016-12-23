@@ -74,3 +74,13 @@ function populatePage (e) {
     }
     // editCardDescription();
 };
+
+function resetStyling () {
+    // if the
+    if (document.querySelector('.cardClick')) {
+        document.querySelector('.cardClick').classList.remove('cardClick');
+    }
+    for (let i = 0; i < inventory.cars.length; i++) {
+        document.querySelectorAll('.card')[i].style.backgroundColor = '';
+    }
+}
