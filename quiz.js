@@ -14,11 +14,12 @@ function loadInventory() {
   inventoryLoader.open("GET", "inventory.json");
   inventoryLoader.send();
 }
+
 // function populatePage (inventory)
 function populatePage (e) {
     inventory = JSON.parse(e.target.responseText);
     // Get reference to the autos section of html
-    const carList = document.querySelector('.autos');
+    const carList = document.querySelector('.cards');
     // empty the autos section
     carSection.innerHTML = "";
     // declare car inventory variable
