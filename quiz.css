@@ -1,0 +1,18 @@
+body {
+	background: lightgoldenrodyellow;
+}
+
+#wider {
+    width: 75%;
+}
+.form-inline {
+    width: 50%;
+}
+
+.cards { /* The container for the car listing */
+  margin-top: 3em;
+}
+
+.cardClick {
+	border: 3px solid black;
+}
